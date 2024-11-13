@@ -1,6 +1,4 @@
 # syntax=docker/dockerfile:1
-# Build with docker build -f Dockerfile_2 -t version_2 .
-# Run with docker run -p 8000:8000 version_2
 FROM python:3.12-alpine as my-app
 
 ENV VENV_PATH="/.venv" \
