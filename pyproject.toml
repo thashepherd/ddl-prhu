@@ -1,33 +1,48 @@
-[tool.poetry]
+[project]
 name = "ddl-prhu"
-version = "1.0.0" # lol who am I kidding
-description = ""
-authors = ["Matt Alioto <matthew.j.alioto@gmail.com>"]
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "Matt Alioto", email = "matthew.j.alioto@gmail.com" }
+]
+dependencies = [
+    "fastapi~=0.115",
+    "uvicorn~=0.32",
+    "requests~=2.32",
+    "pydantic~=2.9",
+    "sqlalchemy~=2.0",
+    "alembic~=1.13",
+    "svix~=1.40",
+    "pyjwt~=2.9",
+    "cryptography~=43.0",
+    "mypy>=1.13.0",
+    "types-requests>=2.32.0.20241016",
+    "types-urllib3>=1.26.25.14",
+    "pytest>=8.3.3",
+    "pytest-asyncio>=0.24.0",
+    "pytest-cov>=6.0.0",
+]
 readme = "README.md"
-
-[tool.poetry.dependencies]
-python = "~3.12"
-fastapi = "~0.115"
-uvicorn = "~0.32"
-requests = "~2.32"
-pydantic = "~2.9"
-sqlalchemy = "~2.0"
-alembic = "~1.13"
-svix = "~1.40"
-pyjwt = "~2.9"
-
-[tool.poetry.group.dev.dependencies]
-ruff = "~0.6"
-bandit = "~1.7"
-pre-commit = "~4.0"
-pylint = "~3.3"
-mypy = "~1.12"
-types-requests = "~2.32"
-types-urllib3 = "~1.26"
-pytest = "~8.3"
-pytest-asyncio = "~0.24"
-pytest-cov = "~6.0"
+requires-python = ">= 3.12"
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "ruff>=0.7.3",
+    "bandit>=1.7.10",
+    "pre-commit>=4.0.1",
+    "pylint>=3.3.1",
+]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ddl_prhu"]
+
+[tool.rye.scripts]
+server = "uvicorn main:app"
