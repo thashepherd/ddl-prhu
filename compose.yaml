@@ -3,8 +3,8 @@ services:
   api_service:
     environment:
       - ENV=local
-    container_name: app_poetry
-    image: image_poetry
+    container_name: app_uv
+    image: image_uv
     build:
       context: .
       dockerfile: ./Dockerfile

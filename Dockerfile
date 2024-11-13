@@ -1,19 +1,11 @@
 # syntax=docker/dockerfile:1
-FROM python:3.12-alpine as my-app
+FROM python:3.13-alpine as uv-app
 
-ENV VENV_PATH="/.venv" \
-    POETRY_VERSION=1.8.4 \
-    POETRY_VIRTUALENVS_IN_PROJECT=true \
-    POETRY_VIRTUALENVS_OPTIONS_NO_PIP=true \
-    POETRY_VIRTUALENVS_OPTIONS_NO_SETUPTOOLS=true
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-ENV PATH="$VENV_PATH/bin:$PATH"
-
-RUN apk add --no-cache poetry
-
-COPY /poetry.lock /pyproject.toml ./
-RUN poetry install --only main --no-root --no-directory -n
+COPY /uv.lock /pyproject.toml ./
+RUN uv sync --frozen --no-cache --no-dev
 
 WORKDIR /api
 COPY ./api .
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["uv", "run", "uvicorn", "main:app"]
