@@ -9,7 +9,6 @@
 #   generate-hashes: false
 #   universal: false
 
--e file:.
 alembic==1.14.0
     # via ddl-prhu
 annotated-types==0.7.0
